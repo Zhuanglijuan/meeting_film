@@ -3,9 +3,11 @@ package com.stylefeng.guns.gateway.modular.auth.filter;
 import com.stylefeng.guns.core.base.tips.ErrorTip;
 import com.stylefeng.guns.core.util.RenderUtil;
 import com.stylefeng.guns.core.util.ToolUtil;
+import com.stylefeng.guns.gateway.common.CurrentUser;
 import com.stylefeng.guns.gateway.common.exception.BizExceptionEnum;
 import com.stylefeng.guns.gateway.config.properties.JwtProperties;
 import com.stylefeng.guns.gateway.modular.auth.util.JwtTokenUtil;
+import com.stylefeng.guns.gateway.modular.vo.ResponseVo;
 import io.jsonwebtoken.JwtException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -63,6 +65,13 @@ public class AuthFilter extends OncePerRequestFilter {
         if (requestHeader != null && requestHeader.startsWith("Bearer ")) {
             authToken = requestHeader.substring(7);
 
+            //通过token获取userID,并且将其存入ThreadLocal,以便后续业务调用
+            String userId = jwtTokenUtil.getUsernameFromToken(authToken);
+            if (userId == null) {
+                return;
+            } else {
+                CurrentUser.saveUserId(userId);
+            }
             //验证token是否过期,包含了验证jwt是否正确
             try {
                 boolean flag = jwtTokenUtil.isTokenExpired(authToken);
