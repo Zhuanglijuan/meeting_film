@@ -9,9 +9,9 @@ public interface UserAPI {
      *
      * @param username :用户名
      * @param password :密码
-     * @return
+     * @return  :用户id
      */
-    boolean login(String username, String password);
+    int login(String username, String password);
 
     /**
      * 注册

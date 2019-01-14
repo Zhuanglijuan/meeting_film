@@ -1,10 +1,12 @@
 package com.stylefeng.guns.api.user;
 
+import java.io.Serializable;
+
 /**
  * @author: zhuanglj
  * @create: 2019-01-14 19:58
  */
-public class UserModel {
+public class UserModel implements Serializable {
     private String username;
 
     private String password;
