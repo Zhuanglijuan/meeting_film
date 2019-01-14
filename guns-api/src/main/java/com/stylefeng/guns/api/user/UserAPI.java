@@ -22,7 +22,7 @@ public interface UserAPI {
     boolean register(UserModel userModel);
 
     /**
-     * 查询用户信息
+     * 用户名验证
      *
      * @param username
      * @return
