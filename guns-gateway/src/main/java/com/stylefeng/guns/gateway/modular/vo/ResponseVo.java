@@ -62,6 +62,14 @@ public class ResponseVo<M> {
         return responseVo;
     }
 
+    public static <M> ResponseVo success(String msg) {
+        ResponseVo responseVo = new ResponseVo();
+        responseVo.setStatus(0);
+        responseVo.setMsg(msg);
+
+        return responseVo;
+    }
+
     /**
      * 业务异常
      *

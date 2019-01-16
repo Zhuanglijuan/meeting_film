@@ -8,6 +8,8 @@ import java.util.Date;
  * @create: 2019-01-14 20:06
  */
 public class UserInfoModel implements Serializable {
+    private Integer uuid;
+
     private String username;
 
     private String nickname;
@@ -31,6 +33,14 @@ public class UserInfoModel implements Serializable {
     private long createTime;
 
     private long updateTime;
+
+    public Integer getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(Integer uuid) {
+        this.uuid = uuid;
+    }
 
     public String getUsername() {
         return username;

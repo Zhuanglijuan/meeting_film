@@ -11,6 +11,8 @@ import com.stylefeng.guns.user.common.persistence.model.MoocUserT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
+
 /**
  * @Author: zhuanglj
  */
@@ -54,22 +56,68 @@ public class UserServiceImpl implements UserAPI {
     @Override
     public boolean checkUserName(String username) {
         EntityWrapper<MoocUserT> entityWrapper = new EntityWrapper<>();
-        entityWrapper.eq("user_name",username);
+        entityWrapper.eq("user_name", username);
         Integer result = moocUserTMapper.selectCount(entityWrapper);
-        if (result != null && result > 0) {
-            return false;
-        } else {
-            return true;
-        }
+        // 查询出用户名不存在返回true
+        return result == null || result <= 0;
     }
 
     @Override
     public UserInfoModel getUserInfo(int uuid) {
-        return null;
+        // 根据主键查询用户信息
+        MoocUserT moocUserT = moocUserTMapper.selectById(uuid);
+        // 将MoocUserT转换成UserInfoModel
+        // 返回UserInfoModel
+        return do2UserInfo(moocUserT);
     }
 
     @Override
     public UserInfoModel updateUserInfo(UserInfoModel userInfoModel) {
-        return null;
+        // 将传入的数据转换为MoocUserT
+        MoocUserT moocUserT = new MoocUserT();
+        moocUserT.setUuid(userInfoModel.getUuid());
+        moocUserT.setUserSex(userInfoModel.getSex());
+        moocUserT.setNickName(userInfoModel.getNickname());
+        moocUserT.setLifeState(Integer.parseInt(userInfoModel.getLifeState()));
+        moocUserT.setBirthday(userInfoModel.getBirthday());
+        moocUserT.setBeginTime(time2Date(userInfoModel.getCreateTime()));
+        moocUserT.setHeadUrl(userInfoModel.getHeadAddress());
+        moocUserT.setEmail(userInfoModel.getEmail());
+        moocUserT.setAddress(userInfoModel.getAddress());
+        moocUserT.setUserPhone(userInfoModel.getPhone());
+        moocUserT.setUpdateTime(time2Date(System.currentTimeMillis()));
+        moocUserT.setBiography(userInfoModel.getBiography());
+
+        // 将数据存入数据库
+        Integer result = moocUserTMapper.updateById(moocUserT);
+        if (result > 0) {
+            // 按照ID将用户信息查出来
+            return getUserInfo(moocUserT.getUuid());
+        } else {
+            return userInfoModel;
+        }
+    }
+
+    private UserInfoModel do2UserInfo(MoocUserT moocUserT) {
+        UserInfoModel userInfoModel = new UserInfoModel();
+
+        userInfoModel.setUsername(moocUserT.getUserName());
+        userInfoModel.setUpdateTime(moocUserT.getUpdateTime().getTime());
+        userInfoModel.setSex(moocUserT.getUserSex());
+        userInfoModel.setPhone(moocUserT.getUserPhone());
+        userInfoModel.setNickname(moocUserT.getNickName());
+        userInfoModel.setLifeState("" + moocUserT.getLifeState());
+        userInfoModel.setAddress(moocUserT.getAddress());
+        userInfoModel.setHeadAddress(moocUserT.getHeadUrl());
+        userInfoModel.setEmail(moocUserT.getEmail());
+        userInfoModel.setCreateTime(moocUserT.getBeginTime().getTime());
+        userInfoModel.setBirthday(moocUserT.getBirthday());
+        userInfoModel.setBiography(moocUserT.getBiography());
+        return userInfoModel;
+    }
+
+    private Date time2Date(long time) {
+
+        return new Date(time);
     }
 }
