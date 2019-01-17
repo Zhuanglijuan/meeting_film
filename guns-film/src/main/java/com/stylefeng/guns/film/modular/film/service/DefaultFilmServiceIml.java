@@ -4,14 +4,10 @@ import com.alibaba.dubbo.config.annotation.Service;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.stylefeng.guns.api.film.FilmServiceApi;
-import com.stylefeng.guns.api.film.vo.BannerVO;
-import com.stylefeng.guns.api.film.vo.FilmInfo;
-import com.stylefeng.guns.api.film.vo.FilmVO;
+import com.stylefeng.guns.api.film.vo.*;
 import com.stylefeng.guns.core.util.DateUtil;
-import com.stylefeng.guns.film.common.persistence.dao.MoocBannerTMapper;
-import com.stylefeng.guns.film.common.persistence.dao.MoocFilmTMapper;
-import com.stylefeng.guns.film.common.persistence.model.MoocBannerT;
-import com.stylefeng.guns.film.common.persistence.model.MoocFilmT;
+import com.stylefeng.guns.film.common.persistence.dao.*;
+import com.stylefeng.guns.film.common.persistence.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -31,6 +27,15 @@ public class DefaultFilmServiceIml implements FilmServiceApi {
 
     @Autowired
     private MoocFilmTMapper moocFilmTMapper;
+
+    @Autowired
+    private MoocCatDictTMapper moocCatDictTMapper;
+
+    @Autowired
+    private MoocSourceDictTMapper moocSourceDictTMapper;
+
+    @Autowired
+    private MoocYearDictTMapper moocYearDictTMapper;
 
     @Override
     public List<BannerVO> getBanners() {
@@ -144,5 +149,50 @@ public class DefaultFilmServiceIml implements FilmServiceApi {
         List<MoocFilmT> moocFilmTS = moocFilmTMapper.selectPage(page, entityWrapper);
         List<FilmInfo> filmInfos = getFilmInfos(moocFilmTS);
         return filmInfos;
+    }
+
+    @Override
+    public List<CatVO> getCats() {
+        List<CatVO> catVOs = new ArrayList<>();
+        // 通过查询实体对象 -MoocCatDictT
+        List<MoocCatDictT> moocCats = moocCatDictTMapper.selectList(null);
+        //将实体对象转换为业务对象 -CatVO
+        for (MoocCatDictT moocCat : moocCats) {
+            CatVO catVO = new CatVO();
+            catVO.setCatName(moocCat.getShowName());
+            catVO.setCatId(moocCat.getUuid() + "");
+            catVOs.add(catVO);
+        }
+        return catVOs;
+    }
+
+    @Override
+    public List<SourceVO> getSources() {
+        List<SourceVO> sourceVOS = new ArrayList<>();
+        // 通过查询实体对象 -MoocSourceDictT
+        List<MoocSourceDictT> moocSourceDictTS = moocSourceDictTMapper.selectList(null);
+        //将实体对象转换为业务对象 -SourceVO
+        for (MoocSourceDictT moocSource : moocSourceDictTS) {
+            SourceVO sourceVO = new SourceVO();
+            sourceVO.setSourceName(moocSource.getShowName());
+            sourceVO.setSourceId(moocSource.getUuid() + "");
+            sourceVOS.add(sourceVO);
+        }
+        return sourceVOS;
+    }
+
+    @Override
+    public List<YearVO> getYears() {
+        List<YearVO> yearVOS = new ArrayList<>();
+        // 通过查询实体对象 -MoocYearDictT
+        List<MoocYearDictT> moocYears = moocYearDictTMapper.selectList(null);
+        //将实体对象转换为业务对象 -YearVO
+        for (MoocYearDictT moocYear : moocYears) {
+            YearVO yearVO = new YearVO();
+            yearVO.setYearName(moocYear.getShowName());
+            yearVO.setYearId(moocYear.getUuid() + "");
+            yearVOS.add(yearVO);
+        }
+        return yearVOS;
     }
 }
