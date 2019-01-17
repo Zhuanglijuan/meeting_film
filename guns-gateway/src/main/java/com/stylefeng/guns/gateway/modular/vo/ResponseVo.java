@@ -1,9 +1,14 @@
 package com.stylefeng.guns.gateway.modular.vo;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * @author: zhuanglj
  * @create: 2019-01-14 20:22
  */
+@Getter
+@Setter
 public class ResponseVo<M> {
     /**
      * 返回状态[0-成功, 1-业务失败, 999-表示系统异常]
@@ -20,29 +25,10 @@ public class ResponseVo<M> {
      */
     private M data;
 
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public M getData() {
-        return data;
-    }
-
-    public void setData(M data) {
-        this.data = data;
-    }
+    /**
+     * 图片前缀
+     */
+    private String imgPre;
 
     private ResponseVo() {
     }
@@ -62,6 +48,30 @@ public class ResponseVo<M> {
         return responseVo;
     }
 
+    /**
+     * 成功
+     *
+     * @param imgPre
+     * @param m
+     * @param <M>
+     * @return
+     */
+    public static <M> ResponseVo success(String imgPre, M m) {
+        ResponseVo responseVo = new ResponseVo();
+        responseVo.setStatus(0);
+        responseVo.setData(m);
+        responseVo.setImgPre(imgPre);
+
+        return responseVo;
+    }
+
+    /**
+     * 成功
+     *
+     * @param msg
+     * @param <M>
+     * @return
+     */
     public static <M> ResponseVo success(String msg) {
         ResponseVo responseVo = new ResponseVo();
         responseVo.setStatus(0);

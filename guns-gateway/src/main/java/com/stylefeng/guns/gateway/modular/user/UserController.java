@@ -2,8 +2,8 @@ package com.stylefeng.guns.gateway.modular.user;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.stylefeng.guns.api.user.UserAPI;
-import com.stylefeng.guns.api.user.UserInfoModel;
-import com.stylefeng.guns.api.user.UserModel;
+import com.stylefeng.guns.api.user.vo.UserInfoModel;
+import com.stylefeng.guns.api.user.vo.UserModel;
 import com.stylefeng.guns.core.util.ToolUtil;
 import com.stylefeng.guns.gateway.common.CurrentUser;
 import com.stylefeng.guns.gateway.modular.vo.ResponseVo;

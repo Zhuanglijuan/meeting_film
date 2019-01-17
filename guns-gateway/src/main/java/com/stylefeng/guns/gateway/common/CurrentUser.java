@@ -1,7 +1,5 @@
 package com.stylefeng.guns.gateway.common;
 
-import com.stylefeng.guns.api.user.UserInfoModel;
-
 /**
  * @author: zhuanglj
  * @create: 2019-01-14 20:39
