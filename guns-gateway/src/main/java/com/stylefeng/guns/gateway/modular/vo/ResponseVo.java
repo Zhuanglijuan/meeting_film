@@ -30,6 +30,16 @@ public class ResponseVo<M> {
      */
     private String imgPre;
 
+    /**
+     * 影片列表当前页
+     */
+    private int nowPage;
+
+    /**
+     * 每页显示条数
+     */
+    private int totalPage;
+
     private ResponseVo() {
     }
 
@@ -44,6 +54,17 @@ public class ResponseVo<M> {
         ResponseVo responseVo = new ResponseVo();
         responseVo.setStatus(0);
         responseVo.setData(m);
+
+        return responseVo;
+    }
+
+    public static <M> ResponseVo success(int nowPage, int totalPage, String imgPre, M m) {
+        ResponseVo responseVo = new ResponseVo();
+        responseVo.setStatus(0);
+        responseVo.setData(m);
+        responseVo.setImgPre(imgPre);
+        responseVo.setTotalPage(totalPage);
+        responseVo.setNowPage(nowPage);
 
         return responseVo;
     }

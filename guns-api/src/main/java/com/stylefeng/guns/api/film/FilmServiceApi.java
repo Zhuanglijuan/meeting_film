@@ -23,7 +23,20 @@ public interface FilmServiceApi {
      * @param nums
      * @return
      */
-    FilmVO getHotFilms(boolean isLimit, int nums);
+    FilmVO getHotFilms(boolean isLimit, int nums, int nowPage, int sortId, int sourceId, int yearId, int catId);
+
+    /**
+     * 获取经典影片
+     *
+     * @param nums
+     * @param nowPage
+     * @param sortId
+     * @param sourceId
+     * @param yearId
+     * @param catId
+     * @return
+     */
+    FilmVO getClassicFilms(int nums, int nowPage, int sortId, int sourceId, int yearId, int catId);
 
     /**
      * 获取即将上映的电影[受欢迎程度做排序]
@@ -32,7 +45,7 @@ public interface FilmServiceApi {
      * @param nums    :具体需要的查询的数量
      * @return
      */
-    FilmVO getSoonFilms(boolean isLimit, int nums);
+    FilmVO getSoonFilms(boolean isLimit, int nums, int nowPage, int sortId, int sourceId, int yearId, int catId);
 
     /**
      * 获取票房排行榜
