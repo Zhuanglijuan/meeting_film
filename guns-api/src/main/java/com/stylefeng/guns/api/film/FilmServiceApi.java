@@ -91,4 +91,43 @@ public interface FilmServiceApi {
      */
     List<YearVO> getYears();
 
+    /**
+     * 根据影片ID或者名称获取影片信息
+     *
+     * @param searchType
+     * @param searchParam
+     * @return
+     */
+    FilmDetailVO getFilmDetail(int searchType, String searchParam);
+
+    /**
+     * 获取影片描述信息
+     *
+     * @param filmId
+     * @return
+     */
+    FilmDescVO getFilmDesc(String filmId);
+
+    /**
+     * 获取图片信息
+     *
+     * @param filmId
+     * @return
+     */
+    ImgVO getImg(String filmId);
+
+    /**
+     * 获取导演信息
+     *
+     * @param filmId
+     * @return
+     */
+    ActorVO getDectInfo(String filmId);
+
+    /**
+     * 获取演员信息
+     * @param filmId
+     * @return
+     */
+    List<ActorVO> getActors(String filmId);
 }

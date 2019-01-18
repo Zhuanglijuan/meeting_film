@@ -51,7 +51,7 @@ public class AuthFilter extends OncePerRequestFilter {
             //数组不为空
             if (ToolUtil.isNotEmpty(ignoreUrls)) {
                 for (String url : ignoreUrls) {
-                    if (request.getServletPath().equals(url)) {
+                    if (request.getServletPath().startsWith(url)) {
                         //路径匹配，忽略
                         chain.doFilter(request, response);
                         return;
