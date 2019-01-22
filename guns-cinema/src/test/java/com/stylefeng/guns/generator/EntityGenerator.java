@@ -29,7 +29,7 @@ public class EntityGenerator {
 
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
-        gc.setOutputDir("/Users/zhuanglijuan/workspace/imooc/meeting_film/meeting_film_backend/meeting_film/guns-film/src/main/java");//这里写你自己的java目录
+        gc.setOutputDir("/Users/zhuanglijuan/workspace/imooc/meeting_film/meeting_film_backend/meeting_film/guns-cinema/src/main/java");//这里写你自己的java目录
         gc.setFileOverride(true);//是否覆盖
         gc.setActiveRecord(true);
         gc.setEnableCache(false);// XML 二级缓存
@@ -58,15 +58,15 @@ public class EntityGenerator {
         StrategyConfig strategy = new StrategyConfig();
         //strategy.setTablePrefix(new String[]{"_"});// 此处可以修改为您的表前缀
         strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
-        strategy.setInclude("mooc_film_actor_t");
+        strategy.setInclude("mooc_brand_dict_t","mooc_area_dict_t","mooc_hall_dict_t","mooc_cinema_t","mooc_field_t","mooc_hall_film_info_t");
         mpg.setStrategy(strategy);
 
         // 包配置
         PackageConfig pc = new PackageConfig();
         pc.setParent(null);
-        pc.setEntity("com.stylefeng.guns.film.common.persistence.model");
-        pc.setMapper("com.stylefeng.guns.film.common.persistence.dao");
-        pc.setXml("com.stylefeng.guns.film.common.persistence.dao.mapping");
+        pc.setEntity("com.stylefeng.guns.cinema.common.persistence.model");
+        pc.setMapper("com.stylefeng.guns.cinema.common.persistence.dao");
+        pc.setXml("com.stylefeng.guns.cinema.common.persistence.dao.mapping");
         pc.setService("TTT");       //本项目没用，生成之后删掉
         pc.setServiceImpl("TTT");   //本项目没用，生成之后删掉
         pc.setController("TTT");    //本项目没用，生成之后删掉
