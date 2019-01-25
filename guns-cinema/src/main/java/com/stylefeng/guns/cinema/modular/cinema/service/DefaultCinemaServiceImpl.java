@@ -6,7 +6,10 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.stylefeng.guns.api.cinema.CinemaServiceAPI;
 import com.stylefeng.guns.api.cinema.vo.*;
 import com.stylefeng.guns.cinema.common.persistence.dao.*;
+import com.stylefeng.guns.cinema.common.persistence.model.MoocAreaDictT;
+import com.stylefeng.guns.cinema.common.persistence.model.MoocBrandDictT;
 import com.stylefeng.guns.cinema.common.persistence.model.MoocCinemaT;
+import com.stylefeng.guns.cinema.common.persistence.model.MoocHallDictT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -87,22 +90,118 @@ public class DefaultCinemaServiceImpl implements CinemaServiceAPI {
 
     @Override
     public List<BrandVO> getBrands(int brandId) {
-        return null;
+        boolean flag = false;
+        List<BrandVO> brandVOS = new ArrayList<>();
+        // 判断传入的brandId是否存在
+        MoocBrandDictT moocBrandDictT = moocBrandDictTMapper.selectById(brandId);
+        // 判断brandId是否等于99
+        if (brandId == 99 || moocBrandDictT == null || moocBrandDictT.getUuid() == null) {
+            flag = true;
+        }
+
+        // 查询所有列表
+        List<MoocBrandDictT> moocBrandDictTS = moocBrandDictTMapper.selectList(null);
+
+        // 判断flag如果为true，则将99置为isActive
+        for (MoocBrandDictT brand : moocBrandDictTS) {
+            BrandVO brandVO = new BrandVO();
+            brandVO.setBrandName(brand.getShowName());
+            brandVO.setBrandId(brand.getUuid() + "");
+            // 如果flag为true，则需要99即"全部"，flag为false，则匹配brandId置为isActive
+            if (flag) {
+                if (brand.getUuid() == 99) {
+                    brandVO.setActive(true);
+                }
+            } else {
+                if (brand.getUuid() == brandId) {
+                    brandVO.setActive(true);
+                }
+            }
+            brandVOS.add(brandVO);
+        }
+        return brandVOS;
     }
 
     @Override
     public List<AreaVO> getAreas(int areaId) {
-        return null;
+        boolean flag = false;
+        List<AreaVO> areaVOS = new ArrayList<>();
+        // 判断传入的brandId是否存在
+        MoocAreaDictT moocAreaDictT = moocAreaDictTMapper.selectById(areaId);
+        // 判断brandId是否等于99
+        if (areaId == 99 || moocAreaDictT == null || moocAreaDictT.getUuid() == null) {
+            flag = true;
+        }
+
+        // 查询所有列表
+        List<MoocAreaDictT> moocAreaDictTS = moocAreaDictTMapper.selectList(null);
+
+        // 判断flag如果为true，则将99置为isActive
+        for (MoocAreaDictT area : moocAreaDictTS) {
+            AreaVO areaVO = new AreaVO();
+            areaVO.setAreaName(area.getShowName());
+            areaVO.setAreaId(area.getUuid() + "");
+            // 如果flag为true，则需要99即"全部"，flag为false，则匹配brandId置为isActive
+            if (flag) {
+                if (area.getUuid() == 99) {
+                    areaVO.setActive(true);
+                }
+            } else {
+                if (area.getUuid() == areaId) {
+                    areaVO.setActive(true);
+                }
+            }
+            areaVOS.add(areaVO);
+        }
+        return areaVOS;
     }
 
     @Override
     public List<HallTypeVO> getHallTypes(int hallType) {
-        return null;
+        boolean flag = false;
+        List<HallTypeVO> hallTypeVOS = new ArrayList<>();
+        // 判断传入的brandId是否存在
+        MoocHallDictT moocHallDictT = moocHallDictTMapper.selectById(hallType);
+        // 判断brandId是否等于99
+        if (hallType == 99 || moocHallDictT == null || moocHallDictT.getUuid() == null) {
+            flag = true;
+        }
+
+        // 查询所有列表
+        List<MoocHallDictT> moocHallDictTS = moocHallDictTMapper.selectList(null);
+
+        // 判断flag如果为true，则将99置为isActive
+        for (MoocHallDictT hall : moocHallDictTS) {
+            HallTypeVO hallTypeVO = new HallTypeVO();
+            hallTypeVO.setHalltypeName(hall.getShowName());
+            hallTypeVO.setHalltypeId(hall.getUuid() + "");
+            // 如果flag为true，则需要99即"全部"，flag为false，则匹配brandId置为isActive
+            if (flag) {
+                if (hall.getUuid() == 99) {
+                    hallTypeVO.setActive(true);
+                }
+            } else {
+                if (hall.getUuid() == hallType) {
+                    hallTypeVO.setActive(true);
+                }
+            }
+            hallTypeVOS.add(hallTypeVO);
+        }
+        return hallTypeVOS;
     }
 
     @Override
     public CinemaInfoVO getCinemaInfoById(int cinemaId) {
-        return null;
+        // 数据实体
+        MoocCinemaT moocCinemaT = moocCinemaTMapper.selectById(cinemaId);
+        // 将数据实体转换成业务实体
+        CinemaInfoVO cinemaInfoVO = new CinemaInfoVO();
+        cinemaInfoVO.setImgUrl(moocCinemaT.getImgAddress());
+        cinemaInfoVO.setCinemaPhone(moocCinemaT.getCinemaPhone());
+        cinemaInfoVO.setCinemaName(moocCinemaT.getCinemaName());
+        cinemaInfoVO.setCinemaId(moocCinemaT.getUuid() + "");
+        cinemaInfoVO.setCinemaAdress(moocCinemaT.getCinemaAddress());
+        return cinemaInfoVO;
     }
 
     @Override

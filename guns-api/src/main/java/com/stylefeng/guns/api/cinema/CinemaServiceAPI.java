@@ -19,7 +19,7 @@ public interface CinemaServiceAPI {
     Page<CinemaVO> getCimemas(CinemaQueryVO cinemaQueryVO);
 
     /**
-     * 根据条件获取品牌列表
+     * 根据条件获取品牌列表[除了99以外，其他的数字为isActive]
      *
      * @param brandId
      * @return
