@@ -8,14 +8,14 @@ jwt:
   expiration: 604800      #7天 单位:秒
   auth-path: auth         #认证请求的路径
   md5-key: randomKey      #md5加密混淆key
-  ignore-url: /user/register,/user/check,/film/getIndex,/film/getConditionList,/film/getFilms,/film/films #忽略列表
+  ignore-url: /user/register,/user/check,/film/getIndex,/film/getConditionList,/film/getFilms,/film/films,/cinema/getCinemas,/cinema/getCondition,/cinema/getFields,/cinema/getFieldInfo #忽略列表
 
 server:
   port: 8090 #项目端口
 
 mybatis-plus:
-  mapper-locations: classpath*:com/stylefeng/guns/gateway/**/mapping/*.xml
-  typeAliasesPackage: com.stylefeng.guns.gateway.common.persistence.model
+  mapper-locations: classpath*:com/stylefeng/guns/rest/**/mapping/*.xml
+  typeAliasesPackage: com.stylefeng.guns.rest.common.persistence.model
   global-config:
     id-type: 0  #0:数据库ID自增   1:用户输入id  2:全局唯一id(IdWorker)  3:全局唯一ID(uuid)
     db-column-underline: false
@@ -34,13 +34,13 @@ spring:
     server: true
     registry: zookeeper://localhost:2181
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/guns_rest?autoReconnect=true&useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
-    username: root
-    password: 12345678
-    filters: log4j,wall,mergeStat
+      url: jdbc:mysql://127.0.0.1:3306/guns_rest?autoReconnect=true&useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
+      username: root
+      password: 12345678
+      filters: log4j,wall,mergeStat
 
 logging:
   level.root: info
   level.com.stylefeng: debug
   path: logs/
-  file: guns-rest.log
+  file: guns-gateway.log

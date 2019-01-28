@@ -5,18 +5,12 @@ import lombok.Data;
 import java.io.Serializable;
 import java.util.List;
 
-/**
- * @author: zhuanglj
- * @create: 2019-01-16 17:44
- */
 @Data
-public class FilmVO implements Serializable {
+public class FilmVO  implements Serializable {
 
     private int filmNum;
-
+    private int nowPage;
+    private int totalPage;
     private List<FilmInfo> filmInfo;
 
-    private int totalPage;
-
-    private int nowPage;
 }
