@@ -205,8 +205,10 @@ public class DefaultCinemaServiceImpl implements CinemaServiceAPI {
     }
 
     @Override
-    public FilmInfoVO getFilmInfoByCinemaId(int cinemaId) {
-        return null;
+    public List<FilmInfoVO> getFilmInfoByCinemaId(int cinemaId) {
+        List<FilmInfoVO> filmInfos = moocFieldTMapper.getFilmInfos(cinemaId);
+
+        return filmInfos;
     }
 
     @Override
